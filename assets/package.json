@@ -1,0 +1,38 @@
+{
+  "name": "akoya",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development npx mix watch --hot",
+    "build": "cross-env NODE_ENV=production npx mix --production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.9",
+    "autoprefixer": "^10.4.14",
+    "browser-sync": "^2.29.1",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "cross-env": "^7.0.3",
+    "laravel-mix": "^6.0.49",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.62.1",
+    "sass-loader": "^12.6.0",
+    "tailwindcss": "^3.3.2"
+  },
+  "dependencies": {
+    "@fullcalendar/core": "^6.1.9",
+    "@fullcalendar/daygrid": "^6.1.9",
+    "animejs": "^3.2.1",
+    "fullcalendar": "^6.1.9",
+    "glightbox": "^3.2.0",
+    "gsap": "^3.12.2",
+    "js-cookie": "^3.0.5",
+    "packery": "^2.1.2",
+    "swiper": "^9.4.1"
+  }
+}
