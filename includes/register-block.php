@@ -206,11 +206,32 @@ function treatmentPackageFormTagHandler( $tag ) {
     $packhtml = sprintf('<select name="%1$s[]" class="select2-custom-package">', esc_attr( $tag->name ));
     $packhtml .= '<option></option>';
     $args = array(
-        'post_type' => 'package',
+        'post_type' => 'treatment',
+        'post_parent' => 0,
         'posts_per_page' => -1,
         'order' => 'ASC',
         'post_status' => 'publish'
     );
+
+    if(isset($_GET['promo'])) {
+        $__loop = new WP_Query(array(
+            'post_type' => 'treatment',
+            'name' => $_GET['promo'],
+            'post_status' => 'publish'
+        ));
+
+        if( $__loop->have_posts() ) {
+            while( $__loop->have_posts() ) {
+                $__loop->the_post();
+
+                $promo = array();
+                $promo['id'] = get_field('treatment');
+                $promo['price'] = get_field('price_to');
+                $promoId = get_field('treatment');
+                $promoPrice = get_field('price_to');
+            }
+        }
+    }
 
 
     $loop = new WP_Query($args);
@@ -219,16 +240,52 @@ function treatmentPackageFormTagHandler( $tag ) {
             $loop->the_post();
             $packhtml .= sprintf('<optgroup label="%1$s">', get_the_title());
             $parentId = get_the_id();
-            if(have_rows('package')) {
-                while(have_rows('package')) {
-                    the_row();
-                    if($_POST['id'] == get_sub_field_object('title')['name'] && $_POST['parentid'] == $parentId) {
-                        $packhtml .= sprintf('<option selected value="%1$s|%2$s" data-subtitle="%2$s" class="d-flex">%1$s</option>', get_sub_field('title'), get_sub_field('subtitle'));
+
+            $_args = array(
+                'post_type' => 'treatment',
+                'post_parent' => $parentId,
+                'posts_per_page' => -1,
+                'post_status' => 'publish'
+            );
+            $_loop = new WP_Query($_args);
+            if($_loop->have_posts()){
+                while($_loop->have_posts()) {
+                    $_loop->the_post();
+
+                    if(isset($promo)) {
+                        $selected = $promo['id'] == get_the_id() ? 'selected data-promo="' . $promo['price'] . '"' : '';
                     } else {
-                        $packhtml .= sprintf('<option value="%1$s|%2$s" data-subtitle="%2$s" class="d-flex">%1$s</option>', get_sub_field('title'), get_sub_field('subtitle'));
+                        $selected = $_POST['id'] == get_the_id() && $_POST['parentid'] == $parentId ? 'selected' : '';
                     }
+
+                    $subtitle = '';
+                    $duration = '';
+                    $price = '';
+                    if(get_field('duration', get_the_id())) {
+                        $subtitle .= '(' . get_field('duration') . ' mins)';
+                        $duration = 'data-duration="' . get_field('duration', get_the_id()) . '"';
+                    }
+
+                    if(get_field('price', get_the_id())) {
+                        $subtitle .= 'IDR ' . get_field('price', get_the_id());
+                        $price = 'data-price="' . get_field('price', get_the_id()) . '"';
+                    }
+                    
+                    $packhtml .= sprintf('<option %3$s value="%1$s|%2$s" data-subtitle="%2$s" %4$s %5$s class="d-flex">%1$s</option>', get_the_title(), $subtitle, $selected, $price, $duration);
                 }
             }
+
+            wp_reset_postdata();
+            // if(have_rows('package')) {
+            //     while(have_rows('package')) {
+            //         the_row();
+            //         if($_POST['id'] == get_sub_field_object('title')['name'] && $_POST['parentid'] == $parentId) {
+            //             $packhtml .= sprintf('<option selected value="%1$s|%2$s" data-subtitle="%2$s" class="d-flex">%1$s</option>', get_sub_field('title'), get_sub_field('subtitle'));
+            //         } else {
+            //             $packhtml .= sprintf('<option value="%1$s|%2$s" data-subtitle="%2$s" class="d-flex">%1$s</option>', get_sub_field('title'), get_sub_field('subtitle'));
+            //         }
+            //     }
+            // }
             $packhtml .= sprintf('</optgroup>');
         }
     }
@@ -259,16 +316,25 @@ function customTreatmentHourValidationFilter($result, $tag) {
 
 function treatmentDiscountFormTagHandler( $tag ) {
 
-    $args = array(
-        'post_type' => 'package',
-        'posts_per_page' => -1
-    );
-    // if(empty($tag->name)) {
-    //     return '';
-    // }
     $val = '';
     if($_GET['promo']) {
         $val = $_GET['promo'];
+    }
+    $args = array(
+        'post_type' => 'discount',
+        'name' => $val,
+        'post_status' => 'publish'
+    );
+    $loop = new WP_Query($args);
+    if($loop->have_posts()) {
+        while($loop->have_posts()) {
+            $loop->the_post();
+
+            if($treatId = get_field('treatment', get_the_id())) {
+
+            }
+
+        }
     }
     $html = sprintf(
         '<input type="hidden" name="promo-code" value="%1$s">',

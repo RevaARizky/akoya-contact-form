@@ -28,6 +28,7 @@
     "@fullcalendar/core": "^6.1.9",
     "@fullcalendar/daygrid": "^6.1.9",
     "animejs": "^3.2.1",
+    "dotenv": "^16.4.5",
     "fullcalendar": "^6.1.9",
     "glightbox": "^3.2.0",
     "gsap": "^3.12.2",
