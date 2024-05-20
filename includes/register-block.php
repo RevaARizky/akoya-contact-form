@@ -33,6 +33,11 @@ function registerBlock() {
         'treatmentPackageFormTagHandler',
         array('name-attr' => true)
     );
+    wpcf7_add_form_tag(
+        array('treatmentdiscount', 'treatmentdiscount*'),
+        'treatmentDiscountFormTagHandler',
+        array('name-attr' => true)
+    );
 }
 
 function treatmentNonceFormTagHandler() {
@@ -249,3 +254,39 @@ function customTreatmentHourValidationFilter($result, $tag) {
     }
     return $result;
 }
+
+
+
+function treatmentDiscountFormTagHandler( $tag ) {
+
+    $args = array(
+        'post_type' => 'package',
+        'posts_per_page' => -1
+    );
+    // if(empty($tag->name)) {
+    //     return '';
+    // }
+    $val = '';
+    if($_GET['promo']) {
+        $val = $_GET['promo'];
+    }
+    $html = sprintf(
+        '<input type="hidden" name="promo-code" value="%1$s">',
+        esc_attr($val)
+    );
+    return $html;
+}
+
+
+
+// $args = array(
+//     'post_type' => 'tribe_events',
+//     'posts_per_page' => '-1',
+//     'orderby' => 'ID',
+//     'order' => 'ASC',
+//     'post_parent' => $postID,
+// );
+
+// $children = new WP_Query($args);
+// $parent[] = get_post($postID);
+// $family = array_merge($parent, $children->get_posts());
