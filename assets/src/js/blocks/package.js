@@ -9,7 +9,7 @@
             }
             if(state.element.dataset.promo) {
                 var $state = $(
-                  `<div class="d-flex justify-content-between"><span class="me-1">${state.text}</span><span class="ms-1">(${state.element.dataset.duration} mins)<del>${state.element.dataset.price}</del>${state.element.dataset.promo}</span></div>`
+                  `<div class="d-flex justify-content-between"><span class="me-1">${state.text}</span><span class="ms-1">(${state.element.dataset.duration} mins)IDR<del>${state.element.dataset.price}</del>${state.element.dataset.promo}</span></div>`
                 );
             } else {
                 var $state = $(
