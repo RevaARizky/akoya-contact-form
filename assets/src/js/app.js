@@ -3,6 +3,7 @@ import '@/blocks/calendar'
 import '@/blocks/date'
 import '@/blocks/confirm'
 import '@/blocks/package'
+import '@/blocks/email'
 import Cookies from 'js-cookie'
 
 
