@@ -231,7 +231,6 @@ function treatmentPackageFormTagHandler( $tag ) {
                 $promoPrice = get_field('price_to');
             }
         }
-        var_dump($promo);
     }
 
 
