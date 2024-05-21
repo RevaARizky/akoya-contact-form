@@ -20,10 +20,7 @@
         }
 
         main.addEventListener('change', e => {
-            
-            
-            
-            e.target.value
+            ajaxCall(e.target.value)
         })
 
     })
