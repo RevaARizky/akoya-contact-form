@@ -240,6 +240,14 @@ function treatmentPackageFormTagHandler( $tag ) {
             $loop->the_post();
             $packhtml .= sprintf('<optgroup label="%1$s">', get_the_title());
             $parentId = get_the_id();
+            if($_POST['version'] == '1') {
+                $dataId = $_POST['id'];
+                $dataParent = $_POST['parentid'];
+            } 
+            if($_POST['version'] == '2') {
+                $dataId = $_POST['ak_id'];
+                $dataParent = $_POST['ak_parentid'];
+            }
 
             $_args = array(
                 'post_type' => 'treatment',
@@ -255,7 +263,7 @@ function treatmentPackageFormTagHandler( $tag ) {
                     if(isset($promo)) {
                         $selected = $promo['id'] == get_the_id() ? 'selected data-promo="' . $promo['price'] . '"' : '';
                     } else {
-                        $selected = $_POST['id'] == get_the_id() && $_POST['parentid'] == $parentId ? 'selected' : '';
+                        $selected = $dataId == get_the_id() && $dataParent == $parentId ? 'selected' : '';
                     }
 
                     $subtitle = '';
