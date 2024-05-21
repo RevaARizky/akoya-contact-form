@@ -215,7 +215,7 @@ function treatmentPackageFormTagHandler( $tag ) {
 
     if(isset($_GET['promo'])) {
         $__loop = new WP_Query(array(
-            'post_type' => 'treatment',
+            'post_type' => 'discount',
             'name' => $_GET['promo'],
             'post_status' => 'publish'
         ));
