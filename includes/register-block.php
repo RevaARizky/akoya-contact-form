@@ -330,16 +330,13 @@ function treatmentDiscountFormTagHandler( $tag ) {
     if($loop->have_posts()) {
         while($loop->have_posts()) {
             $loop->the_post();
-
-            if($treatId = get_field('treatment', get_the_id())) {
-
-            }
-
+            $description = get_field('description', get_the_id()) ? get_field('description', get_the_id()) : '';
         }
     }
     $html = sprintf(
-        '<input type="hidden" name="promo-code" value="%1$s">',
-        esc_attr($val)
+        '<input type="hidden" name="promo-code" value="%1$s"><div class="text-center">%2$s</div>',
+        esc_attr($val),
+        $description
     );
     return $html;
 }
