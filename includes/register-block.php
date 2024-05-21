@@ -279,7 +279,7 @@ function treatmentPackageFormTagHandler( $tag ) {
                         $price = 'data-price="' . get_field('price', get_the_id()) . '"';
                     }
                     
-                    $packhtml .= sprintf('<option %3$s value="%1$s|%2$s" data-subtitle="%2$s" %4$s %5$s class="d-flex">%1$s</option>', get_the_title(), $subtitle, $selected, $price, $duration);
+                    $packhtml .= sprintf('<option %3$s value="%6$s" data-subtitle="%2$s" %4$s %5$s class="d-flex">%1$s</option>', get_the_title(), $subtitle, $selected, $price, $duration, get_the_id());
                 }
             }
 
@@ -341,7 +341,7 @@ function treatmentDiscountFormTagHandler( $tag ) {
         }
     }
     $html = sprintf(
-        '<input type="hidden" name="promo-code" value="%1$s"><div class="text-center">%2$s</div>',
+        '<input type="hidden" name="promo-code" value="%1$s"><div class="text-center mb-5">%2$s</div>',
         esc_attr($val),
         $description
     );
