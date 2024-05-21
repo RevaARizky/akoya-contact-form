@@ -2,6 +2,7 @@ import $ from 'jquery'
 import '@/blocks/calendar'
 import '@/blocks/date'
 import '@/blocks/confirm'
+import '@/blocks/package'
 import Cookies from 'js-cookie'
 
 
