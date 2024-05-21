@@ -98,7 +98,7 @@
                         elLoop.classList.remove('active')
                     })
                     el.classList.add('active')
-                    inputdate.value = `${window.yearInput}-${window.monthInput+1}-${el.dataset.date.length >= 2 ? el.dataset.date : '0' + el.dataset.date}`
+                    inputdate.value = `${window.yearInput}-${String(window.monthInput+1).length == 1 ? '0' + String(window.monthInput+1) : window.monthInput+1 }-${el.dataset.date.length >= 2 ? el.dataset.date : '0' + el.dataset.date}`
                     if(window.yearInput == window.currentDate.getFullYear() && window.monthInput == window.currentDate.getMonth() && el.dataset.date == window.currentDate.getDate()) {
                         window.currentDateActive = new Date()
                     } else {
