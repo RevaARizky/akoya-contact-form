@@ -317,10 +317,10 @@ function customTreatmentHourValidationFilter($result, $tag) {
 
 function treatmentDiscountFormTagHandler( $tag ) {
 
-    $val = '';
-    if($_GET['promo']) {
-        $val = $_GET['promo'];
+    if(!$_GET['promo']) {
+        return '';
     }
+    $val = $_GET['promo'];
     $args = array(
         'post_type' => 'discount',
         'name' => $val,
