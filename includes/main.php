@@ -44,10 +44,12 @@ function akoya_wpcf7_before_send_mail_function( $contact_form, $abort, $submissi
     }
 
     $mail = $contact_form->prop('mail');
-
     $mail['body'] = preg_replace('/\[treatpack\]/', $treatment_str, $mail['body']);
+    $mail2 = $contact_form->prop('mail_2');
+    $mail2['body'] = preg_replace('/\[treatpack\]/', $treatment_str, $mail2['body']);
 
     $contact_form->set_properties( array( 'mail' => $mail ) );
+    $contact_form->set_properties( array( 'mail_2' => $mail2 ) );
     if(!preg_match('/\[pricetotal\]/',$mail['body'])) {
         return $contact_form;
     }
@@ -81,6 +83,8 @@ function akoya_wpcf7_before_send_mail_function( $contact_form, $abort, $submissi
 
     $mail['body'] = preg_replace('/\[pricetotal\]/', $priceTotal,$mail['body']);
     $contact_form->set_properties( array( 'mail' => $mail ) );
+    $mail2['body'] = preg_replace('/\[pricetotal\]/', $priceTotal, $mail2['body']);
+    $contact_form->set_properties( array( 'mail_2' => $mail2 ) );
     return $contact_form;
     
 }
