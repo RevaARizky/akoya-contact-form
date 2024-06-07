@@ -35,8 +35,9 @@ function akoya_wpcf7_before_send_mail_function( $contact_form, $abort, $submissi
     $treatment_str = '';
     $treatment_arr = array();
     // Get title for each treatment then replace email body with titles
+    $count = 0;
     foreach($submission->get_posted_data('treatpack') as $index => $treat) {
-        if($index) {
+        if($count++) {
             $treatment_str .= ', ';
         }
         $treatment_str .= get_the_title($treat);
@@ -81,7 +82,7 @@ function akoya_wpcf7_before_send_mail_function( $contact_form, $abort, $submissi
         $priceTotal = $priceTotal + $price;
     }
 
-    $mail['body'] = preg_replace('/\[pricetotal\]/', $priceTotal,$mail['body']);
+    $mail['body'] = preg_replace('/\[pricetotal\]/', $priceTotal, $mail['body']);
     $contact_form->set_properties( array( 'mail' => $mail ) );
     $mail2['body'] = preg_replace('/\[pricetotal\]/', $priceTotal, $mail2['body']);
     $contact_form->set_properties( array( 'mail_2' => $mail2 ) );
@@ -89,3 +90,31 @@ function akoya_wpcf7_before_send_mail_function( $contact_form, $abort, $submissi
     
 }
 add_filter( 'wpcf7_before_send_mail', 'akoya_wpcf7_before_send_mail_function', 10, 3 );
+
+
+function _is_email_exists($email) {
+	$args = array(
+		'post_type' => 'email_list',
+		'meta_key' => '_email_user',
+		'meta_value' => $email
+	);
+	
+	$check = new WP_Query($args);
+
+	return $check->have_posts();
+}
+
+
+
+function checkEmail() {
+
+	$res = array(
+		'status' => 200,
+		'exists' => _is_email_exists($_POST['email'])
+	);
+    echo json_encode($res);
+	wp_die();
+}
+
+add_action('wp_ajax_checkUserEmail', 'checkEmail');
+add_action('wp_ajax_nopriv_checkUserEmail', 'checkEmail');

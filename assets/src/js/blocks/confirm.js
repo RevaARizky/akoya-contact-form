@@ -1,5 +1,6 @@
 (() => {
     document.addEventListener('DOMContentLoaded', function() {
+        if(!document.querySelectorAll('.confirm-wrapper .confirm').length) return false
         document.querySelectorAll('.confirm-wrapper .confirm').forEach(el => {
             el.addEventListener('click', function() {
                 if(el.classList.contains('active')) {

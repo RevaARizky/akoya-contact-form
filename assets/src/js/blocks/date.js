@@ -7,6 +7,8 @@
             timewrapper: document.querySelector('.time-wrapper')
         }
 
+        if(!els.time && !els.timewrapper) return false
+
         window.resetValTime = () => {
             els.time.value = ''
         }

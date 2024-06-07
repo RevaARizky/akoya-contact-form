@@ -141,3 +141,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .confirm-wrapper .confirm.active .icon-check, .confirm-wrapper .confirm .icon-uncheck {
   display: block;
 }
+
+.referral-input .success-icon {
+  position: absolute;
+  display: none;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 0;
+}
+
+.referral-input.success .success-icon {
+  display: block;
+}

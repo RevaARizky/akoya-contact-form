@@ -1,6 +1,7 @@
 (() => {
 
     document.addEventListener('DOMContentLoaded', function() {
+        if(!document.querySelector('#calendar-select')) return false
         window.currentDate = new Date()
         window.currentDateActive = window.currentDate
         date = new Date(); // creates a new date object with the current date and time
